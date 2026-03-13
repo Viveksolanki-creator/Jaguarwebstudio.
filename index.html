@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAGUAR WEB STUDIO | CINEMATIC EXPERIENCE</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --accent: #7000ff;
+            --dark: #030303;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- GLOBAL FIXES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Only hide cursor on Desktop */
+        @media (min-width: 1024px) {
+            body, a, button { cursor: none !important; }
+        }
+
+        body { 
+            background-color: var(--dark); 
+            color: white; 
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- CUSTOM CURSOR (Hidden on Mobile) --- */
+        #cursor {
+            position: fixed; width: 12px; height: 12px; background: var(--primary);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            mix-blend-mode: difference; display: none;
+        }
+        #cursor-blur {
+            position: fixed; width: 350px; height: 350px; 
+            background: radial-gradient(circle, rgba(0,242,255,0.1) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 9998; 
+            transform: translate(-50%, -50%); display: none;
+        }
+        @media (min-width: 1024px) { #cursor, #cursor-blur { display: block; } }
+
+        /* --- PRELOADER --- */
+        #loader {
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+        }
+        .loader-text { font-family: 'Syncopate'; font-size: 2rem; letter-spacing: 15px; color: var(--primary); }
+        .loader-bar { width: 0%; height: 2px; background: var(--primary); margin-top: 20px; box-shadow: 0 0 20px var(--primary); }
+
+        /* --- DYNAMIC BACKGROUND --- */
+        .bg-mesh {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #0a1120 0%, #030303 100%);
+            z-index: -2;
+        }
+        .glow-orb {
+            position: absolute; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(112,0,255,0.15) 0%, transparent 70%);
+            top: -10%; right: -10%; z-index: -1; filter: blur(80px);
+        }
+
+        /* --- NAV --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 25px 5%;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            background: linear-gradient(to bottom, rgba(3,3,3,0.8), transparent);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-family: 'Syncopate'; font-weight: 700; font-size: 1.1rem; color: var(--primary); letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+        }
+        .reveal-text { overflow: hidden; height: auto; margin: -10px 0; }
+        .hero h1 {
+            font-family: 'Syncopate'; font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 1.1; text-transform: uppercase;
+            background: linear-gradient(to bottom, #fff 40%, #555);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-sub { font-size: 0.9rem; opacity: 0.5; margin-bottom: 20px; letter-spacing: 8px; text-transform: uppercase; }
+
+        /* --- SECTIONS --- */
+        section { padding: 120px 8%; position: relative; }
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-top: 50px;
+        }
+
+        /* --- CARDS --- */
+        .card {
+            background: var(--glass); border: 1px solid var(--border);
+            padding: 40px; border-radius: 24px; backdrop-filter: blur(15px);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            position: relative; overflow: hidden;
+        }
+        .card:hover { border-color: var(--primary); transform: scale(1.02); background: rgba(255,255,255,0.05); }
+        .card i { font-size: 2rem; color: var(--primary); margin-bottom: 20px; display: block; }
+        .card h3 { font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 12px; letter-spacing: 1px; }
+        .card p { opacity: 0.6; font-size: 0.9rem; line-height: 1.7; }
+
+        /* --- PRICE BADGE --- */
+        .price-tag { font-size: 3.5rem; font-family: 'Syncopate'; color: #fff; margin: 20px 0; display: block; }
+
+        /* --- BUTTONS --- */
+        .mag-btn-wrap { position: relative; display: inline-block; margin-top: 30px; }
+        .btn {
+            padding: 18px 40px; background: var(--primary); color: var(--dark);
+            text-decoration: none; font-weight: 800; border-radius: 50px;
+            display: inline-block; text-transform: uppercase; font-size: 0.75rem;
+            letter-spacing: 2px; transition: 0.4s; border: none;
+        }
+        .btn:hover { box-shadow: 0 0 40px rgba(0, 242, 255, 0.4); transform: translateY(-3px); }
+
+        /* --- AI CHAT SYSTEM --- */
+        #ai-window {
+            position: fixed; bottom: 100px; left: 30px; width: 350px; height: 480px;
+            background: rgba(10, 10, 15, 0.95); border: 1px solid var(--border);
+            border-radius: 20px; display: none; flex-direction: column;
+            z-index: 2000; box-shadow: 0 30px 60px rgba(0,0,0,0.8); overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+        .ai-header { padding: 18px; background: var(--primary); color: #000; font-weight: 900; font-family: 'Syncopate'; font-size: 0.65rem; display: flex; justify-content: space-between; }
+        .ai-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .ai-msg { padding: 12px 16px; border-radius: 15px; font-size: 0.8rem; max-width: 85%; line-height: 1.4; }
+        .ai-msg.bot { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-left: 3px solid var(--primary); }
+        .ai-msg.user { background: var(--primary); color: #000; align-self: flex-end; font-weight: 600; }
+        .ai-input-area { padding: 15px; border-top: 1px solid var(--border); display: flex; background: rgba(0,0,0,0.2); }
+        .ai-input-area input { background: none; border: none; color: white; flex: 1; outline: none; font-size: 0.85rem; }
+
+        #ai-toggle {
+            position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px;
+            background: var(--primary); border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; z-index: 2000; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* --- WHATSAPP --- */
+        .wa-float {
+            position: fixed; bottom: 30px; right: 30px; background: #25D366;
+            width: 60px; height: 60px; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; color: white; font-size: 1.8rem; z-index: 2000;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 3.5rem; }
+            section { padding: 80px 5%; }
+            #ai-window { width: calc(100% - 60px); bottom: 100px; left: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <div id="loader">
+        <div class="loader-text">JAGUAR</div>
+        <div class="loader-bar" id="loader-bar"></div>
+    </div>
+
+    <div class="bg-mesh"></div>
+    <div class="glow-orb" id="orb"></div>
+
+    <nav>
+        <div class="logo">JAGUAR STUDIO</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#work">Capabilities</a>
+            <a href="#pricing">Investments</a>
+            <a href="https://wa.me/917726933421">Inquiry</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero" id="home">
+            <p class="hero-sub">The Future of Web</p>
+            <div class="reveal-text"><h1 class="h-anim">JAGUAR</h1></div>
+            <div class="reveal-text"><h1 class="h-anim">STUDIO</h1></div>
+            <div class="mag-btn-wrap">
+                <a href="https://wa.me/917726933421" class="btn">Start a Project</a>
+            </div>
+        </section>
+
+        <section id="work">
+            <h2 style="font-family:'Syncopate'; font-size: 1.5rem; color: var(--primary);" data-gsap="fade">01. CAPABILITIES</h2>
+            <div class="grid">
+                <div class="card" data-tilt>
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Visual Identity</h3>
+                    <p>Creating digital personas that leave a lasting psychological impact on your audience.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <i class="fas fa-code"></i>
+                    <h3>Elite Engine</h3>
+                    <p>Ultra-optimized code structure ensuring 99/100 performance scores on Google Lighthouse.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <i class="fas fa-infinity"></i>
+                    <h3>Immersive UX</h3>
+                    <p>Fluid transitions and motion design that guide users naturally toward your goals.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing">
+            <h2 style="text-align:center; font-family:'Syncopate'; font-size: 1.5rem;" data-gsap="fade">02. INVESTMENTS</h2>
+            <div class="grid">
+                <div class="card" style="text-align: center;">
+                    <span style="color:var(--primary); font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;">STARTER</span>
+                    <span class="price-tag">₹999</span>
+                    <p>Single Page Excellence. Ideal for personal branding. 48hr delivery.</p>
+                    <a href="https://wa.me/917726933421" class="btn" style="width: 100%; margin-top: 20px;">Secure Plan</a>
+                </div>
+                <div class="card" style="text-align: center; border-color: var(--primary);">
+                    <span style="color:var(--primary); font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;">BUSINESS</span>
+                    <span class="price-tag">₹2999</span>
+                    <p>Full Professional Suite. 5 Pages, SEO, & Contact Systems. 4-day delivery.</p>
+                    <a href="https://wa.me/917726933421" class="btn" style="width: 100%; margin-top: 20px;">Secure Plan</a>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <span style="color:var(--primary); font-size: 0.7rem; font-weight: 800; letter-spacing: 3px;">ULTRA PRO</span>
+                    <span class="price-tag">₹5999</span>
+                    <p>The Masterpiece. 10+ Pages, Complex Animations, & Premium SEO.</p>
+                    <a href="https://wa.me/917726933421" class="btn" style="width: 100%; margin-top: 20px;">Secure Plan</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="ai-window">
+        <div class="ai-header">
+            <span>JAGUAR NEURAL INTERFACE</span>
+            <i class="fas fa-times" onclick="toggleChat()" style="cursor:pointer"></i>
+        </div>
+        <div class="ai-messages" id="chat-box">
+            <div class="ai-msg bot">Connection established. I am Jaguar-AI. State your name to begin the briefing.</div>
+        </div>
+        <div class="ai-input-area">
+            <input type="text" id="ai-input" placeholder="Type message..." onkeypress="if(event.key==='Enter') sendAI()">
+            <button onclick="sendAI()" style="background:none; border:none;"><i class="fas fa-paper-plane" style="color:var(--primary); cursor:pointer;"></i></button>
+        </div>
+    </div>
+    <div id="ai-toggle" onclick="toggleChat()"><i class="fas fa-robot" style="color:#000; font-size: 1.5rem;"></i></div>
+
+    <a href="https://wa.me/917726933421" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+
+    <footer style="padding: 60px; text-align: center; opacity: 0.3; font-size: 0.7rem; letter-spacing: 2px;">
+        EST. 2026 | DESIGNED & CODED BY VIVEK SOLANKI
+    </footer>
+
+    <script>
+        // Smooth Scroll
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // Preloader & Reveal
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+            tl.to("#loader-bar", { width: "100%", duration: 1.2, ease: "power4.inOut" })
+              .to("#loader", { yPercent: -100, duration: 0.8, ease: "expo.inOut" })
+              .from(".h-anim", { y: 150, stagger: 0.1, duration: 1, ease: "power4.out" }, "-=0.3")
+              .from(".hero-sub, .mag-btn-wrap", { opacity: 0, y: 20, duration: 1 }, "-=0.5");
+        });
+
+        // Desktop Cursor Logic
+        if(window.innerWidth > 1024) {
+            const cursor = document.getElementById('cursor');
+            const cursorBlur = document.getElementById('cursor-blur');
+            document.addEventListener('mousemove', (e) => {
+                gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+                gsap.to(cursorBlur, { x: e.clientX, y: e.clientY, duration: 0.5 });
+            });
+        }
+
+        // Magnetic Button
+        const magBtn = document.querySelector('.mag-btn-wrap');
+        magBtn.addEventListener('mousemove', (e) => {
+            const b = magBtn.getBoundingClientRect();
+            gsap.to(magBtn.querySelector('.btn'), { 
+                x: (e.clientX - b.left - b.width/2) * 0.4, 
+                y: (e.clientY - b.top - b.height/2) * 0.4, 
+                duration: 0.3 
+            });
+        });
+        magBtn.addEventListener('mouseleave', () => {
+            gsap.to(magBtn.querySelector('.btn'), { x: 0, y: 0, duration: 0.3 });
+        });
+
+        // Parallax Orb
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 25;
+            const y = (window.innerHeight / 2 - e.clientY) / 25;
+            gsap.to("#orb", { x: x, y: y, duration: 1 });
+        });
+
+        // Scroll Reveal
+        gsap.utils.toArray('.card').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: { trigger: card, start: "top 90%" },
+                opacity: 0, scale: 0.9, y: 30, duration: 0.8
+            });
+        });
+
+        // AI Chat Logic
+        let user = "";
+        function toggleChat() {
+            const win = document.getElementById('ai-window');
+            win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function sendAI() {
+            const input = document.getElementById('ai-input');
+            const box = document.getElementById('chat-box');
+            const val = input.value.trim();
+            if(!val) return;
+
+            box.innerHTML += `<div class="ai-msg user">${val}</div>`;
+            const q = val.toLowerCase();
+            input.value = "";
+
+            let r = "Scanning database... Ask me about our ₹999, ₹2999 or ₹5999 plans.";
+            if(!user) {
+                user = val;
+                r = `Access Granted, ${user}. I am ready. What project specifications do you have in mind?`;
+            } else if(q.includes("999")) {
+                r = "The STARTER plan (₹999) is a high-performance landing page designed for conversion. Ready in 48 hours.";
+            } else if(q.includes("2999")) {
+                r = "The BUSINESS plan (₹2999) is our most popular choice. It includes 5 pages, full SEO setup, and mobile responsiveness.";
+            } else if(q.includes("5999")) {
+                r = "The ULTRA PRO (₹5999) is the pinnacle. Advanced GSAP animations, unlimited pages, and 1 year of priority support.";
+            }
+
+            setTimeout(() => {
+                box.innerHTML += `<div class="ai-msg bot">${r}</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 600);
+        }
+
+        VanillaTilt.init(document.querySelectorAll(".card"), { max: 8, speed: 500, glare: true, "max-glare": 0.1 });
+    </script>
+</body>
+</html>
