@@ -229,24 +229,25 @@
                 </div>
 
                 <div class="form-ui" data-aos="fade-left">
-                    <form>
+                    <!-- Form linked to Mailto Method -->
+                    <form action="mailto:maliv7511@gmail.com" method="POST" enctype="text/plain">
                         <div class="input-group">
                             <label>Full Name</label>
-                            <input type="text" class="input-field" placeholder="Vivek Solanki">
+                            <input type="text" name="Name" class="input-field" placeholder="Vivek Solanki">
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                             <div class="input-group">
                                 <label>Email Address*</label>
-                                <input type="email" class="input-field" placeholder="name@example.com" required>
+                                <input type="email" name="Email" class="input-field" placeholder="name@example.com" required>
                             </div>
                             <div class="input-group">
                                 <label>Phone</label>
-                                <input type="tel" class="input-field" placeholder="+91">
+                                <input type="tel" name="Phone" class="input-field" placeholder="+91">
                             </div>
                         </div>
                         <div class="input-group">
                             <label>Tell Us About Project*</label>
-                            <textarea class="input-field" style="height:120px; resize:none;" placeholder="Describe your vision..." required></textarea>
+                            <textarea name="Project_Details" class="input-field" style="height:120px; resize:none;" placeholder="Describe your vision..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width:100%">Send Message <i class="fas fa-paper-plane" style="margin-left:10px;"></i></button>
                     </form>
@@ -285,33 +286,3 @@
             particles: {
                 number: { value: 50 },
                 color: { value: "#00d2ff" },
-                opacity: { value: 0.2 },
-                size: { value: 2 },
-                line_linked: { enable: true, distance: 150, color: "#00d2ff", opacity: 0.1, width: 1 },
-                move: { enable: true, speed: 1 }
-            }
-        });
-
-        function toggleChat() {
-            const win = document.getElementById('ai-window');
-            win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        function handleAI() {
-            const input = document.getElementById('ai-input');
-            const body = document.getElementById('ai-body');
-            if(!input.value.trim()) return;
-            body.innerHTML += `<div style="background:var(--primary); color:var(--dark); padding:10px; border-radius:10px; align-self:flex-end; font-weight:700;">${input.value}</div>`;
-            
-            let reply = "I am processing. Vivek Solanki specializes in custom code. Would you like to discuss the ₹2999 Business Plan?";
-            if(input.value.includes("999")) reply = "The Starter plan is ideal for professional single-page assets with 48h delivery.";
-            
-            setTimeout(() => {
-                body.innerHTML += `<div style="background:var(--glass); padding:10px; border-radius:10px; align-self:flex-start;">${reply}</div>`;
-                body.scrollTop = body.scrollHeight;
-            }, 600);
-            input.value = "";
-        }
-    </script>
-</body>
-</html>
