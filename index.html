@@ -1,288 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEB CODE STUDIO | ELITE CUSTOM ARCHITECTURE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- External Assets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+<title>Web Code Studio | High Speed Custom Websites</title>
 
-    <style>
-        :root {
-            --primary: #00d2ff;
-            --accent: #7000ff;
-            --dark: #03070a;
-            --glass: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --section-bg: #050a10;
-        }
+<meta name="description" content="Web Code Studio builds ultra fast custom coded websites. No templates. Built by Vivek Solanki.">
+<meta name="keywords" content="web developer india, custom website developer, website development">
+<meta name="author" content="Vivek Solanki">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--dark); color: white; overflow-x: hidden; scroll-behavior: smooth; }
+<meta property="og:title" content="Web Code Studio">
+<meta property="og:description" content="High performance custom coded websites built in India.">
+<meta property="og:type" content="website">
 
-        /* --- LOADING INTRO --- */
-        #intro-overlay {
-            position: fixed; inset: 0; background: #000; z-index: 10000;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .intro-text { font-family: 'Syncopate'; font-size: clamp(1rem, 5vw, 2rem); color: var(--primary); letter-spacing: 12px; text-transform: uppercase; animation: intro-anim 3s ease-in-out forwards; }
-        @keyframes intro-anim { 0% { opacity: 0; filter: blur(10px); } 50% { opacity: 1; filter: blur(0); } 100% { opacity: 0; transform: translateY(-20px); } }
+<link rel="icon" href="favicon.png">
 
-        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        /* --- NAVIGATION --- */
-        header {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(3, 7, 10, 0.8); backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-        nav { max-width: 1400px; margin: auto; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Syncopate'; font-weight: 700; color: var(--primary); font-size: 0.8rem; letter-spacing: 3px; }
-        .nav-links a { color: white; text-decoration: none; margin-left: 30px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
 
-        /* --- PAGE SEPARATION LOGIC --- */
-        .page-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 20px;
-            position: relative;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .page-section:nth-child(even) { background-color: var(--section-bg); }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-        .container { max-width: 1200px; width: 100%; margin: auto; }
-        .section-tag { color: var(--primary); font-weight: 800; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 15px; }
+<style>
 
-        /* --- HOME PAGE --- */
-        .hero-h1 { font-size: clamp(2.5rem, 8vw, 6rem); font-family: 'Syncopate'; line-height: 1; margin-bottom: 30px; }
-        .hero-h1 span { color: var(--primary); }
+:root{
+--primary:#00d2ff;
+--accent:#7000ff;
+--dark:#03070a;
+--glass:rgba(255,255,255,0.03);
+--glass-border:rgba(255,255,255,0.08);
+}
 
-        /* --- ABOUT PAGE --- */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .about-content h2 { font-family: 'Syncopate'; font-size: 2.5rem; margin-bottom: 25px; }
-        .about-content p { line-height: 1.8; opacity: 0.7; margin-bottom: 20px; font-size: 1.05rem; }
-        .stat-box { display: flex; gap: 40px; margin-top: 40px; }
-        .stat-item h3 { font-size: 2rem; color: var(--primary); font-family: 'Syncopate'; }
-        .stat-item p { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; opacity: 0.5; }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Plus Jakarta Sans',sans-serif;
+}
 
-        /* --- PRICING PAGE --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .price-card {
-            background: var(--glass); border: 1px solid var(--glass-border);
-            padding: 60px 40px; border-radius: 40px; transition: 0.4s;
-            text-align: center; position: relative;
-        }
-        .price-card:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(0,210,255,0.02); }
-        .price-card.featured { border-color: var(--primary); box-shadow: 0 20px 50px rgba(0,210,255,0.1); }
+body{
+background:#03070a;
+color:white;
+overflow-x:hidden;
+}
 
-        /* --- CONTACT PAGE (UI FORM) --- */
-        .contact-flex { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
-        .form-ui {
-            background: var(--glass); border: 1px solid var(--glass-border);
-            padding: 50px; border-radius: 40px; backdrop-filter: blur(20px);
-        }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 0.65rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; letter-spacing: 1px; }
-        .input-field {
-            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
-            padding: 15px 20px; border-radius: 12px; color: white; outline: none; transition: 0.3s;
-        }
-        .input-field:focus { border-color: var(--primary); background: rgba(0,210,255,0.05); }
+header{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(0,0,0,0.7);
+backdrop-filter:blur(10px);
+border-bottom:1px solid var(--glass-border);
+z-index:1000;
+}
 
-        /* --- BUTTONS --- */
-        .btn {
-            display: inline-block; padding: 20px 45px; border-radius: 100px;
-            text-decoration: none; font-weight: 900; text-transform: uppercase; font-size: 0.75rem;
-            transition: 0.4s; letter-spacing: 2px; border: none; cursor: pointer;
-        }
-        .btn-primary { background: var(--primary); color: var(--dark); box-shadow: 0 10px 30px rgba(0,210,255,0.3); }
-        .btn-outline { border: 1px solid var(--glass-border); color: white; }
-        .btn-outline:hover { background: white; color: black; }
+nav{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+padding:20px;
+}
 
-        /* --- FLOATING ELEMENTS --- */
-        #ai-toggle { position: fixed; bottom: 40px; left: 40px; width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        .wa-float { position: fixed; bottom: 40px; right: 40px; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 30px; z-index: 1000; text-decoration: none; }
+.logo{
+font-family:'Syncopate';
+color:var(--primary);
+font-size:14px;
+letter-spacing:3px;
+}
 
-        @media (max-width: 968px) {
-            .about-grid, .contact-flex { grid-template-columns: 1fr; text-align: center; }
-            .stat-box { justify-content: center; }
-            nav { padding: 15px 20px; }
-            .nav-links { display: none; }
-        }
-    </style>
+.nav-links a{
+color:white;
+text-decoration:none;
+margin-left:25px;
+font-size:12px;
+text-transform:uppercase;
+font-weight:700;
+}
+
+.nav-links a:hover{
+color:var(--primary);
+}
+
+section{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:120px 20px;
+}
+
+.container{
+max-width:1100px;
+width:100%;
+}
+
+.hero h1{
+font-size:60px;
+font-family:'Syncopate';
+text-align:center;
+margin-bottom:30px;
+}
+
+.hero span{
+color:var(--primary);
+}
+
+.hero p{
+text-align:center;
+opacity:.6;
+max-width:600px;
+margin:auto;
+}
+
+.btn{
+display:inline-block;
+margin-top:30px;
+padding:16px 40px;
+background:var(--primary);
+color:black;
+border-radius:40px;
+font-weight:800;
+text-decoration:none;
+}
+
+.about-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+}
+
+.price-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.card{
+padding:40px;
+border-radius:25px;
+border:1px solid var(--glass-border);
+background:var(--glass);
+text-align:center;
+}
+
+.card:hover{
+border-color:var(--primary);
+}
+
+footer{
+text-align:center;
+padding:40px;
+border-top:1px solid var(--glass-border);
+opacity:.6;
+}
+
+.wa{
+position:fixed;
+bottom:30px;
+right:30px;
+width:60px;
+height:60px;
+background:#25D366;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+color:white;
+text-decoration:none;
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <!-- LOADING SCREEN -->
-    <div id="intro-overlay"><h1 class="intro-text">WEB CODE STUDIO</h1></div>
-    
-    <div id="particles-js"></div>
+<header>
+<nav>
+<div class="logo">WEB CODE STUDIO</div>
 
-    <header>
-        <nav>
-            <div class="logo">WEB CODE STUDIO</div>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#about">The Studio</a>
-                <a href="#plans">Investment</a>
-                <a href="#contact">Discovery</a>
-            </div>
-        </nav>
-    </header>
+<div class="nav-links">
+<a href="#home">Home</a>
+<a href="#about">Studio</a>
+<a href="#plans">Plans</a>
+<a href="#contact">Contact</a>
+</div>
 
-    <!-- PAGE 1: HOME -->
-    <section class="page-section" id="home">
-        <div class="container" style="text-align: center;">
-            <div data-aos="zoom-out" data-aos-duration="1500">
-                <span class="section-tag">High Performance Development</span>
-                <h1 class="hero-h1">Coded in <span>India</span>.<br>Built for Results.</h1>
-                <p style="opacity:0.5; max-width:600px; margin: 0 auto 40px; font-size: 1.1rem; line-height:1.6;">We build extreme-speed digital assets that load in milliseconds. No templates. No WordPress. Just pure, powerful code by Vivek Solanki.</p>
-                <div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
-                    <a href="#contact" class="btn btn-primary">Start Development</a>
-                    <a href="#about" class="btn btn-outline">Our Philosophy</a>
-                </div>
-            </div>
-        </div>
-    </section>
+</nav>
+</header>
 
-    <!-- PAGE 2: ABOUT -->
-    <section class="page-section" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content" data-aos="fade-right">
-                    <span class="section-tag">The Studio</span>
-                    <h2>Code is the New Real Estate.</h2>
-                    <p>At Web Code Studio, we believe a website shouldn't just exist—it should perform. Led by <b>Vivek Solanki</b>, our studio specializes in custom architecture that bypasses the limitations of generic builders.</p>
-                    <p>We treat every line of code as a business investment. Our websites are built to rank higher, load faster, and convert more visitors than any template-based competitor.</p>
-                    <div class="stat-box">
-                        <div class="stat-item"><h3>0.5s</h3><p>Avg Load Speed</p></div>
-                        <div class="stat-item"><h3>100%</h3><p>Custom Built</p></div>
-                        <div class="stat-item"><h3>24/7</h3><p>Expert Support</p></div>
-                    </div>
-                </div>
-                <div class="about-visual" data-aos="fade-left" style="text-align: center;">
-                    <div style="padding: 60px; border: 1px dashed var(--glass-border); border-radius: 50px; background: var(--glass);">
-                        <i class="fas fa-microchip" style="font-size: 6rem; color: var(--primary); margin-bottom: 20px; opacity: 0.3;"></i>
-                        <h4 style="font-family: 'Syncopate'; font-size: 1rem;">Indian Innovation</h4>
-                        <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 10px;">World-class engineering standards with localized precision.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="home" class="hero">
 
-    <!-- PAGE 3: PLANS -->
-    <section class="page-section" id="plans">
-        <div class="container">
-            <div style="text-align: center; margin-bottom: 60px;">
-                <span class="section-tag">Value Tiers</span>
-                <h2 style="font-family:'Syncopate'; font-size:2.5rem;">Strategic Investment</h2>
-            </div>
-            <div class="pricing-grid">
-                <div class="price-card" data-aos="fade-up">
-                    <h3 style="opacity:0.4;">Starter</h3>
-                    <h2 style="font-size:3.5rem; margin:20px 0; color:var(--primary);">₹999<br><span style="font-size:1rem; font-weight:normal; color:#fff; opacity:0.8;">+ 800 (custom domain cost)</span></h2>
-                    <p style="font-size:0.85rem; opacity:0.6; margin-bottom:30px;">Professional 1-Page Asset<br>48-Hour Deployment</p>
-                    <a href="https://wa.me/916367207775" class="btn btn-outline" style="width:100%">Choose Starter</a>
-                </div>
-                <div class="price-card featured" data-aos="fade-up" data-aos-delay="100">
-                    <span style="position:absolute; top:20px; right:20px; font-size:0.6rem; background:var(--primary); color:var(--dark); padding:5px 12px; border-radius:50px; font-weight:900;">MOST POPULAR</span>
-                    <h3 style="color:var(--primary);">Business</h3>
-                    <h2 style="font-size:3.5rem; margin:20px 0;">₹2999<br><span style="font-size:1rem; font-weight:normal; color:#fff; opacity:0.8;">+ 800 (custom domain cost)</span></h2>
-                    <p style="font-size:0.85rem; opacity:0.6; margin-bottom:30px;">5 Premium Dynamic Pages<br>Custom Logic & SEO</p>
-                    <a href="https://wa.me/916367207775" class="btn btn-primary" style="width:100%">Get Business Plan</a>
-                </div>
-                <div class="price-card" data-aos="fade-up" data-aos-delay="200">
-                    <h3 style="opacity:0.4;">Enterprise</h3>
-                    <h2 style="font-size:3.5rem; margin:20px 0; color:var(--primary);">₹5999<br><span style="font-size:1rem; font-weight:normal; color:#fff; opacity:0.8;">+ 800 (custom domain cost)</span></h2>
-                    <p style="font-size:0.85rem; opacity:0.6; margin-bottom:30px;">10+ Full-Scale Pages<br>Motion Graphics & SEO</p>
-                    <a href="https://wa.me/916367207775" class="btn btn-outline" style="width:100%">Start Enterprise</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="container">
 
-    <!-- PAGE 4: CONTACT (DISCOVERY) -->
-    <section class="page-section" id="contact">
-        <div class="container">
-            <div class="contact-flex">
-                <div class="contact-text" data-aos="fade-right">
-                    <span class="section-tag">Project Discovery</span>
-                    <h2 style="font-family:'Syncopate'; font-size:2.5rem; margin-bottom:20px;">Let's Talk About Your Idea</h2>
-                    <p style="opacity:0.6; line-height:1.8;">Have a question? Our dedicated architecture team will respond to you shortly. Thank you for choosing Web Code Studio.</p>
-                    <div style="margin-top:40px;">
-                        <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
-                            <i class="fas fa-phone" style="color:var(--primary)"></i>
-                            <p>+91 6367207775</p>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:15px;">
-                            <i class="fas fa-envelope" style="color:var(--primary)"></i>
-                            <p>maliv7511@gmail.com</p>
-                        </div>
-                    </div>
-                </div>
+<h1>Coded in <span>India</span></h1>
 
-                <div class="form-ui" data-aos="fade-left">
-                    <!-- Form linked to Mailto Method -->
-                    <form action="mailto:maliv7511@gmail.com" method="POST" enctype="text/plain">
-                        <div class="input-group">
-                            <label>Full Name</label>
-                            <input type="text" name="Name" class="input-field" placeholder="Vivek Solanki">
-                        </div>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-                            <div class="input-group">
-                                <label>Email Address*</label>
-                                <input type="email" name="Email" class="input-field" placeholder="name@example.com" required>
-                            </div>
-                            <div class="input-group">
-                                <label>Phone</label>
-                                <input type="tel" name="Phone" class="input-field" placeholder="+91">
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <label>Tell Us About Project*</label>
-                            <textarea name="Project_Details" class="input-field" style="height:120px; resize:none;" placeholder="Describe your vision..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width:100%">Send Message <i class="fas fa-paper-plane" style="margin-left:10px;"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+<p>
+We build high performance websites using pure code.
+No templates. No WordPress. Just fast architecture.
+</p>
 
-    <footer>
-        <p>© 2026 WEB CODE STUDIO | Lead Architect: Vivek Solanki</p>
-    </footer>
+<div style="text-align:center">
+<a class="btn" href="#contact">Start Project</a>
+</div>
 
-    <!-- AI CONSULTANT -->
-    <div id="ai-toggle" onclick="toggleChat()"><i class="fas fa-brain" style="color:var(--dark); font-size:1.5rem;"></i></div>
-    <div id="ai-window" style="position:fixed; bottom:120px; left:40px; width:320px; height:450px; background:#0a0f15; border:1px solid var(--glass-border); border-radius:25px; display:none; flex-direction:column; z-index:1000; overflow:hidden;">
-        <div style="background:var(--primary); color:var(--dark); padding:15px; font-weight:900; font-size:0.7rem; font-family:'Syncopate';">AI CONSULTANT</div>
-        <div id="ai-body" style="flex:1; padding:20px; overflow-y:auto; font-size:0.8rem; display:flex; flex-direction:column; gap:10px;">
-            <div style="background:var(--glass); padding:10px; border-radius:10px;">Hello. I am the Web Code AI. How can I assist with your project vision?</div>
-        </div>
-        <div style="padding:15px; border-top:1px solid var(--glass-border); display:flex;">
-            <input type="text" id="ai-input" placeholder="Ask about plans..." style="flex:1; background:none; border:none; color:white; outline:none; font-size:0.8rem;">
-            <button onclick="handleAI()" style="background:none; border:none; color:var(--primary); cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
+</div>
 
-    <a href="https://wa.me/916367207775" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+</section>
 
-    <!-- SCRIPTS -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<section id="about">
 
-    <script>
-        window.onload = () => { setTimeout(() => { document.getElementById('intro-overlay').style.display = 'none'; }, 3000); };
-        AOS.init({ duration: 1000, once: true });
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 50 },
-                color: { value: "#00d2ff" },
+<div class="container about-grid">
+
+<div>
+<h2 style="font-family:Syncopate;margin-bottom:20px">About Studio</h2>
+
+<p style="opacity:.7;line-height:1.8">
+Web Code Studio builds high speed websites designed
+for performance, SEO, and business growth.
+</p>
+
+</div>
+
+<div>
+<i class="fas fa-microchip" style="font-size:100px;color:var(--primary);opacity:.4"></i>
+</div>
+
+</div>
+
+</section>
+
+<section id="plans">
+
+<div class="container">
+
+<h2 style="text-align:center;font-family:Syncopate;margin-bottom:50px">
+Investment Plans
+</h2>
+
+<div class="price-grid">
+
+<div class="card">
+<h3>Starter</h3>
+<h1 style="color:var(--primary)">₹999</h1>
+<p>1 Page Website</p>
+</div>
+
+<div class="card">
+<h3>Business</h3>
+<h1 style="color:var(--primary)">₹2999</h1>
+<p>5 Pages Website</p>
+</div>
+
+<div class="card">
+<h3>Enterprise</h3>
+<h1 style="color:var(--primary)">₹5999</h1>
+<p>10+ Pages Website</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<div class="container">
+
+<h2 style="font-family:Syncopate;margin-bottom:20px">Contact</h2>
+
+<form action="mailto:maliv7511@gmail.com" method="POST" enctype="text/plain">
+
+<input type="text" placeholder="Name" style="width:100%;padding:15px;margin-bottom:15px">
+
+<input type="email" placeholder="Email" style="width:100%;padding:15px;margin-bottom:15px">
+
+<textarea placeholder="Project details" style="width:100%;padding:15px;height:120px"></textarea>
+
+<button class="btn" type="submit">Send</button>
+
+</form>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Web Code Studio | Vivek Solanki
+</footer>
+
+<a href="https://wa.me/916367207775" class="wa">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"Organization",
+"name":"Web Code Studio",
+"founder":"Vivek Solanki"
+}
+</script>
+
+</body>
+</html>
